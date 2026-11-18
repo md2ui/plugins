@@ -1,18 +1,14 @@
 ---
 name: md2ui
-description: Write an answer as md2ui Markdown (plain Markdown that md2ui renders as UI) and check it with md2ui's tools before it is sent. Use when an answer is meant for an md2ui frontend.
+description: Show your replies to the user in an md2ui window, and hear their clicks and messages. Use when the md2ui tools are connected and the user wants to talk through the window, or asks to see something in md2ui.
 ---
 
-# Writing for md2ui
+# Answering through md2ui
 
-md2ui renders your Markdown reply as UI. Writing for it is writing your reply, in plain
-Markdown, and it is harmless: nothing in it runs.
+The `show` tool is your reply, displayed in a window on the user's screen: the same reply
+the chat would get. It is plain Markdown, and harmless: nothing in it runs. Its form is yours
+to choose — a UI, a plain written answer such as a plan, or both in one document. Nothing has
+to be structured to be shown.
 
-1. Read the core note once, with the `guide` tool and no topic. It says what each element
-   means and how to write it.
-2. For one section of an answer (a status list, choices, an agenda, an inbox), call
-   `guide("patterns")`, then read only the pattern you need.
-3. Before the answer is sent: `check` lists authoring mistakes, `actions` lists what the
-   answer offers the user, and `preview` shows it when you need to look.
-
-The notes are also the server's resources, `md2ui://skills/<file>`.
+The md2ui server's instructions say how to answer, listen and end your turn, and every
+result says what comes next: follow them.

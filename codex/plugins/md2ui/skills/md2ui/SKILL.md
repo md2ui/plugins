@@ -1,6 +1,6 @@
 ---
-name: md2ui-demo
-description: Show replies in the local native md2ui window and hear its clicks and typed messages. Use when the md2ui-demo tools are connected and the user asks to open md2ui or show an answer there.
+name: md2ui
+description: Show replies in the local native md2ui window and hear its clicks and typed messages. Use when the md2ui tools are connected and the user asks to open md2ui or show an answer there.
 ---
 
 # Answer through md2ui

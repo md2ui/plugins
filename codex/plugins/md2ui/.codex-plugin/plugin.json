@@ -1,7 +1,7 @@
 {
-  "name": "md2ui-demo",
-  "version": "0.1.0-alpha.2",
-  "description": "Show ChatGPT or Codex replies in a native md2ui window and return the user's clicks and messages.",
+  "name": "md2ui",
+  "version": "0.1.0-alpha.3",
+  "description": "md2ui shows ChatGPT or Codex replies as UI in a native window and returns the user's clicks and messages, with authoring tools to check and preview them.",
   "author": {
     "name": "alexrvarela"
   },
@@ -12,9 +12,9 @@
   "skills": "./skills/",
   "requires_local_executor": true,
   "interface": {
-    "displayName": "md2ui demo",
+    "displayName": "md2ui",
     "shortDescription": "Show answers in a native md2ui window.",
-    "longDescription": "ChatGPT or Codex writes ordinary Markdown, opens it in the local md2ui Python window, and receives clicks and typed replies through MCP.",
+    "longDescription": "ChatGPT or Codex writes ordinary Markdown, md2ui shows it as UI in a native window on your computer, and clicks and typed replies come back through MCP. Authoring tools check, outline and preview an answer before it is shown.",
     "developerName": "alexrvarela",
     "category": "Productivity",
     "capabilities": [

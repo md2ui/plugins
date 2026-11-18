@@ -1,4 +1,4 @@
-"""Start md2ui's demo MCP server from the published package (md2ui ADR-605).
+"""Start md2ui's window MCP server from the published package (md2ui ADR-605).
 
 Claude Desktop runs this file with its own ``python3``, so it uses the standard
 library only, and it never writes to stdout: once the server starts, stdout is
@@ -35,7 +35,7 @@ UVX_FALLBACKS = (
 
 
 def _say(message: str) -> None:
-    print(f"md2ui-demo: {message}", file=sys.stderr)
+    print(f"md2ui: {message}", file=sys.stderr)
 
 
 def find_uvx() -> str | None:

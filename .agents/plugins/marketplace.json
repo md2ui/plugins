@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "md2ui-demo",
+      "name": "md2ui",
       "source": {
         "source": "local",
-        "path": "./codex/plugins/md2ui-demo"
+        "path": "./codex/plugins/md2ui"
       },
       "policy": {
         "installation": "AVAILABLE",

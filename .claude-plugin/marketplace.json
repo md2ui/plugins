@@ -3,17 +3,12 @@
   "owner": {
     "name": "alexrvarela"
   },
-  "description": "md2ui's Claude Code plugins. Each runs the published md2ui package with uvx.",
+  "description": "md2ui's Claude Code plugin. It runs the published md2ui package with uvx.",
   "plugins": [
     {
       "name": "md2ui",
       "source": "./claude-code/md2ui",
-      "description": "md2ui's authoring tools: check, outline, lay out and preview Markdown that md2ui renders as UI, and read its authoring notes."
-    },
-    {
-      "name": "md2ui-demo",
-      "source": "./claude-code/md2ui-demo",
-      "description": "Claude shows its answers as UI in an md2ui window and hears your clicks. Includes the authoring tools."
+      "description": "md2ui shows Claude's answers as UI in a native window and returns your clicks, with the authoring tools to check and preview them."
     }
   ]
 }

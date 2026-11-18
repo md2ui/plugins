@@ -1,4 +1,4 @@
-"""Tests for the OpenAI plugin that launches md2ui's native demo window, for
+"""Tests for the OpenAI plugin that launches md2ui's native window, for
 ChatGPT Desktop and Codex, from the published md2ui package.
 
 The live test starts the server exactly as the host would, from a folder of its
@@ -18,7 +18,7 @@ from mcp import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
 
 ROOT = Path(__file__).resolve().parent.parent
-PACKAGE = ROOT / "codex/plugins/md2ui-demo"
+PACKAGE = ROOT / "codex/plugins/md2ui"
 # The release installed here, which the plugin must name.
 PIN = f"md2ui=={metadata.version('md2ui')}"
 
@@ -28,23 +28,24 @@ def _json(path: Path) -> dict:
 
 
 def _server() -> dict:
-    return _json(PACKAGE / ".mcp.json")["mcpServers"]["md2ui-demo"]
+    return _json(PACKAGE / ".mcp.json")["mcpServers"]["md2ui"]
 
 
 def test_manifest_names_one_local_stdio_server():
     compatibility = _json(PACKAGE / ".codex-plugin/plugin.json")
     assert not (PACKAGE / "plugin.json").exists()
     assert not (PACKAGE / "mcp.json").exists()
-    assert compatibility["name"] == "md2ui-demo"
+    assert compatibility["name"] == "md2ui"
     assert compatibility["requires_local_executor"] is True
     assert compatibility["skills"] == "./skills/"
-    assert compatibility["interface"]["displayName"] == "md2ui demo"
+    assert compatibility["interface"]["displayName"] == "md2ui"
     assert compatibility["mcpServers"] == "./.mcp.json"
 
     server = _server()
     assert set(server) == {"command", "enabled", "args"}, server
     assert server["command"] == "uvx"
     assert server["enabled"] is True
+    # md2ui-mcp-demo is md2ui's console-script name for its window server.
     assert server["args"] == ["--from", PIN, "md2ui-mcp-demo", "--fetch"]
     print("  ✓  the manifest names one enabled stdio server: the release, run by uvx")
 
@@ -52,17 +53,16 @@ def test_manifest_names_one_local_stdio_server():
 def test_marketplace_points_at_the_plugin():
     marketplace = _json(ROOT / ".agents/plugins/marketplace.json")
     assert marketplace["name"] == "md2ui"
-    entry = next(
-        item for item in marketplace["plugins"] if item["name"] == "md2ui-demo"
-    )
+    (entry,) = marketplace["plugins"]
+    assert entry["name"] == "md2ui", entry
     source = entry["source"]
-    assert source == {"source": "local", "path": "./codex/plugins/md2ui-demo"}
+    assert source == {"source": "local", "path": "./codex/plugins/md2ui"}
     assert (ROOT / source["path"]).resolve() == PACKAGE.resolve()
     assert entry["policy"] == {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL",
     }
-    print("  ✓  the root marketplace resolves the packaged plugin")
+    print("  ✓  the root marketplace lists one plugin, md2ui, and resolves it")
 
 
 async def _listed_tools(cwd: str) -> set[str]:
@@ -74,7 +74,7 @@ async def _listed_tools(cwd: str) -> set[str]:
             return {tool.name for tool in (await session.list_tools()).tools}
 
 
-def test_stdio_configuration_starts_the_real_demo_server():
+def test_stdio_configuration_starts_the_real_server():
     with tempfile.TemporaryDirectory() as cwd:
         tools = asyncio.run(_listed_tools(cwd))
     assert tools == {
@@ -94,13 +94,13 @@ def test_stdio_configuration_starts_the_real_demo_server():
         "status",
         "wait_for_event",
     }
-    print("  ✓  the packaged stdio command starts md2ui-demo with all fifteen tools")
+    print("  ✓  the packaged stdio command starts md2ui with all fifteen tools")
 
 
 TESTS = [
     test_manifest_names_one_local_stdio_server,
     test_marketplace_points_at_the_plugin,
-    test_stdio_configuration_starts_the_real_demo_server,
+    test_stdio_configuration_starts_the_real_server,
 ]
 
 

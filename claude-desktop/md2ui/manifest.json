@@ -1,10 +1,10 @@
 {
   "manifest_version": "0.3",
-  "name": "md2ui-demo",
-  "display_name": "md2ui demo",
-  "version": "0.1.0-alpha.2",
-  "description": "Claude shows its answers as UI in an md2ui window, and hears your clicks.",
-  "long_description": "A local demo of md2ui. Claude answers in md2ui Markdown; `show` opens the answer in md2ui's window; `wait_for_event` returns your next click as a sentence; `mark` ticks, unticks or disables what was shown. The extension holds no md2ui code: it runs the published md2ui package (md2ui==0.1.0a1) with uvx, so it needs uv installed. Its previews load pictures, and the fonts md2ui locks, as the window does.",
+  "name": "md2ui",
+  "display_name": "md2ui",
+  "version": "0.1.0-alpha.3",
+  "description": "md2ui shows Claude's answers as UI in a native window, and returns your clicks.",
+  "long_description": "md2ui shows Claude's answers as UI in a native window on your computer. Claude answers in md2ui Markdown; `show` opens the answer in md2ui's window; `wait_for_event` returns your next click as a sentence; `mark` ticks, unticks or disables what was shown; `check`, `outline`, `layout` and `preview` are the authoring tools that check an answer before it is shown. The extension holds no md2ui code: it runs the published md2ui package (md2ui==0.1.0a1) with uvx, so it needs uv installed. Its previews load pictures, and the fonts md2ui locks, as the window does.",
   "author": {
     "name": "alexrvarela"
   },

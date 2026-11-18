@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "md2ui-demo": {
+    "md2ui": {
       "command": "uvx",
       "enabled": true,
       "args": [

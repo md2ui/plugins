@@ -1,4 +1,4 @@
-# A release, on a tag `v<version>` (e.g. v0.1.0-alpha.1): test, then build the Claude
+# A release, on a tag `v<version>` (e.g. v0.1.0-alpha.3): test, then build the Claude
 # Desktop extension and attach it to a GitHub Release. The Claude Code and Codex
 # marketplaces need nothing built: they install from the repository itself.
 name: release
@@ -33,9 +33,8 @@ jobs:
           tag = os.environ["GITHUB_REF_NAME"]
           files = [
               "claude-code/md2ui/.claude-plugin/plugin.json",
-              "claude-code/md2ui-demo/.claude-plugin/plugin.json",
-              "claude-desktop/md2ui-demo/manifest.json",
-              "codex/plugins/md2ui-demo/.codex-plugin/plugin.json",
+              "claude-desktop/md2ui/manifest.json",
+              "codex/plugins/md2ui/.codex-plugin/plugin.json",
           ]
           wrong = [f for f in files if "v" + json.load(open(f))["version"] != tag]
           if wrong:
@@ -44,7 +43,7 @@ jobs:
       - name: The md2ui release the packages name
         id: pin
         run: |
-          pin="$(python3 -c 'import json; a = json.load(open("codex/plugins/md2ui-demo/.mcp.json"))["mcpServers"]["md2ui-demo"]["args"]; print(a[a.index("--from") + 1])')"
+          pin="$(python3 -c 'import json; a = json.load(open("codex/plugins/md2ui/.mcp.json"))["mcpServers"]["md2ui"]["args"]; print(a[a.index("--from") + 1])')"
           echo "pin=$pin" >> "$GITHUB_OUTPUT"
       - name: Packaging tests
         run: |
@@ -53,14 +52,14 @@ jobs:
           done
       - name: Build the Claude Desktop extension
         run: |
-          npx --yes @anthropic-ai/mcpb@2.1.2 validate claude-desktop/md2ui-demo/manifest.json
-          npx --yes @anthropic-ai/mcpb@2.1.2 pack claude-desktop/md2ui-demo md2ui-demo.mcpb
-          sha256sum md2ui-demo.mcpb
+          npx --yes @anthropic-ai/mcpb@2.1.2 validate claude-desktop/md2ui/manifest.json
+          npx --yes @anthropic-ai/mcpb@2.1.2 pack claude-desktop/md2ui md2ui.mcpb
+          sha256sum md2ui.mcpb
       - name: GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" md2ui-demo.mcpb \
+          gh release create "$GITHUB_REF_NAME" md2ui.mcpb \
             --title "md2ui plugins $GITHUB_REF_NAME" \
             --prerelease \
-            --notes "Plugins for Claude Code, Claude Desktop, Codex and ChatGPT Desktop, running ${{ steps.pin.outputs.pin }} from PyPI. Install: see the README. The Claude Desktop extension is attached: download md2ui-demo.mcpb and open it in Claude Desktop."
+            --notes "Plugins for Claude Code, Claude Desktop, Codex and ChatGPT Desktop, running ${{ steps.pin.outputs.pin }} from PyPI. Install: see the README. The Claude Desktop extension is attached: download md2ui.mcpb and open it in Claude Desktop."

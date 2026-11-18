@@ -31,7 +31,7 @@ jobs:
       - name: The md2ui release the packages name
         id: pin
         run: |
-          pin="$(python3 -c 'import json; a = json.load(open("codex/plugins/md2ui-demo/.mcp.json"))["mcpServers"]["md2ui-demo"]["args"]; print(a[a.index("--from") + 1])')"
+          pin="$(python3 -c 'import json; a = json.load(open("codex/plugins/md2ui/.mcp.json"))["mcpServers"]["md2ui"]["args"]; print(a[a.index("--from") + 1])')"
           echo "pin=$pin" >> "$GITHUB_OUTPUT"
           echo "Testing against $pin"
       - name: Packaging tests
@@ -40,4 +40,4 @@ jobs:
             uv run --no-project --python 3.13 --with "${{ steps.pin.outputs.pin }}" python "$t"
           done
       - name: The Claude Desktop extension validates
-        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate claude-desktop/md2ui-demo/manifest.json
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate claude-desktop/md2ui/manifest.json
