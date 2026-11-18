@@ -1,0 +1,26 @@
+{
+  "name": "md2ui-demo",
+  "version": "0.1.0-alpha.1",
+  "description": "Show ChatGPT or Codex replies in a native md2ui window and return the user's clicks and messages.",
+  "author": {
+    "name": "alexrvarela"
+  },
+  "skills": "./skills/",
+  "requires_local_executor": true,
+  "interface": {
+    "displayName": "md2ui demo",
+    "shortDescription": "Show answers in a native md2ui window.",
+    "longDescription": "ChatGPT or Codex writes ordinary Markdown, opens it in the local md2ui Python window, and receives clicks and typed replies through MCP.",
+    "developerName": "alexrvarela",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Open md2ui and show me what is new.",
+      "Show this answer in the md2ui window."
+    ],
+    "brandColor": "#6750A4"
+  },
+  "mcpServers": "./.mcp.json"
+}

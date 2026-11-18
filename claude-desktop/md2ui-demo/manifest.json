@@ -1,0 +1,53 @@
+{
+  "manifest_version": "0.3",
+  "name": "md2ui-demo",
+  "display_name": "md2ui demo",
+  "version": "0.1.0-alpha.1",
+  "description": "Claude shows its answers as UI in an md2ui window, and hears your clicks.",
+  "long_description": "A local demo of md2ui. Claude answers in md2ui Markdown; `show` opens the answer in md2ui's window; `wait_for_event` returns your next click as a sentence; `mark` ticks, unticks or disables what was shown. The extension holds no md2ui code: it runs the published md2ui package (md2ui==0.1.0a1) with uvx, so it needs uv installed. Its previews load pictures, and the fonts md2ui locks, as the window does.",
+  "author": {
+    "name": "alexrvarela"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "server/launch.py",
+    "mcp_config": {
+      "command": "python3",
+      "args": ["${__dirname}/server/launch.py"],
+      "env": {
+        "MD2UI_THEME": "${user_config.theme}"
+      }
+    }
+  },
+  "tools": [
+    {"name": "show", "description": "Show your reply to the user in the md2ui window: a UI, a plain answer, or both. Plain Markdown: nothing in it runs. Offer next steps you can take as agent: buttons, and include the pictures your data came with. Then it listens, and returns what the user did."},
+    {"name": "wait_for_event", "description": "Wait for the user's next click, as a sentence, or a message typed into the window. The window is heard only while a wait is open; each result says what to do next."},
+    {"name": "mark", "description": "Tick, untick, disable or set the value of a target of a shown response, or move a bar by its key, in place."},
+    {"name": "feed", "description": "Let a process you run move bars on a shown page by posting Key: value lines to a local URL, costing no turns; it ends itself."},
+    {"name": "screenshot", "description": "A PNG of the md2ui window as it is on screen, to check what the user sees."},
+    {"name": "status", "description": "The state the window was last told, and whether one is still connected."},
+    {"name": "showing", "description": "What the window holds, as data: the live Markdown, its offers, and what the user asked for."},
+    {"name": "patch", "description": "Replace one section or one link of a page you showed, without re-sending the rest."},
+    {"name": "history", "description": "The pages shown this session, one row each: id, title, age, sources and stale sections."},
+    {"name": "check", "description": "Authoring issues in an md2ui response."},
+    {"name": "actions", "description": "What a response offers the user, numbered as a click reports it."},
+    {"name": "outline", "description": "The grouped structure, one node per line."},
+    {"name": "layout", "description": "The layout shape at a width."},
+    {"name": "preview", "description": "A PNG of a response, with its pictures loaded as in the user's window."},
+    {"name": "guide", "description": "md2ui's authoring notes, by name; the core note first."}
+  ],
+  "user_config": {
+    "theme": {
+      "type": "file",
+      "title": "THEME.md",
+      "description": "Your theme. Leave empty for md2ui's default theme.",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin"],
+    "runtimes": {
+      "python": ">=3.9"
+    }
+  }
+}

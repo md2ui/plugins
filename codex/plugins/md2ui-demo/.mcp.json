@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "md2ui-demo": {
+      "command": "uvx",
+      "enabled": true,
+      "args": [
+        "--from",
+        "md2ui==0.1.0a1",
+        "md2ui-mcp-demo",
+        "--fetch"
+      ]
+    }
+  }
+}

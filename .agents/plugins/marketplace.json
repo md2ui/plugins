@@ -1,0 +1,20 @@
+{
+  "name": "md2ui",
+  "interface": {
+    "displayName": "md2ui"
+  },
+  "plugins": [
+    {
+      "name": "md2ui-demo",
+      "source": {
+        "source": "local",
+        "path": "./codex/plugins/md2ui-demo"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

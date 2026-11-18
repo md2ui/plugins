@@ -1,0 +1,60 @@
+# A release, on a tag `v<version>` (e.g. v0.1.0-alpha.1): test, then build the Claude
+# Desktop extension and attach it to a GitHub Release. The Claude Code and Codex
+# marketplaces need nothing built: they install from the repository itself.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write  # to create the GitHub Release and upload the .mcpb
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: The tag names the packages' version
+        run: |
+          python3 - <<'EOF'
+          import json, os, sys
+          tag = os.environ["GITHUB_REF_NAME"]
+          files = [
+              "claude-code/md2ui/.claude-plugin/plugin.json",
+              "claude-code/md2ui-demo/.claude-plugin/plugin.json",
+              "claude-desktop/md2ui-demo/manifest.json",
+              "codex/plugins/md2ui-demo/.codex-plugin/plugin.json",
+          ]
+          wrong = [f for f in files if "v" + json.load(open(f))["version"] != tag]
+          if wrong:
+              sys.exit(f"::error::tag {tag} does not match the version in: {', '.join(wrong)}")
+          EOF
+      - name: The md2ui release the packages name
+        id: pin
+        run: |
+          pin="$(python3 -c 'import json; a = json.load(open("codex/plugins/md2ui-demo/.mcp.json"))["mcpServers"]["md2ui-demo"]["args"]; print(a[a.index("--from") + 1])')"
+          echo "pin=$pin" >> "$GITHUB_OUTPUT"
+      - name: Packaging tests
+        run: |
+          for t in tests/*_tests.py; do
+            uv run --no-project --python 3.13 --with "${{ steps.pin.outputs.pin }}" python "$t"
+          done
+      - name: Build the Claude Desktop extension
+        run: |
+          npx --yes @anthropic-ai/mcpb@2.1.2 validate claude-desktop/md2ui-demo/manifest.json
+          npx --yes @anthropic-ai/mcpb@2.1.2 pack claude-desktop/md2ui-demo md2ui-demo.mcpb
+          sha256sum md2ui-demo.mcpb
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" md2ui-demo.mcpb \
+            --title "md2ui plugins $GITHUB_REF_NAME" \
+            --prerelease \
+            --notes "Plugins for Claude Code, Claude Desktop, Codex and ChatGPT Desktop, running ${{ steps.pin.outputs.pin }} from PyPI. Install: see the README. The Claude Desktop extension is attached: download md2ui-demo.mcpb and open it in Claude Desktop."

@@ -1,0 +1,37 @@
+# The packages' tests, against the md2ui release they name, on every push.
+#
+# The pin is read from the Codex manifest; the tests themselves fail when any other
+# package names a different release, so one source is enough here.
+name: check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Tests (the pinned md2ui release)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: The md2ui release the packages name
+        id: pin
+        run: |
+          pin="$(python3 -c 'import json; a = json.load(open("codex/plugins/md2ui-demo/.mcp.json"))["mcpServers"]["md2ui-demo"]["args"]; print(a[a.index("--from") + 1])')"
+          echo "pin=$pin" >> "$GITHUB_OUTPUT"
+          echo "Testing against $pin"
+      - name: Packaging tests
+        run: |
+          for t in tests/*_tests.py; do
+            uv run --no-project --python 3.13 --with "${{ steps.pin.outputs.pin }}" python "$t"
+          done
+      - name: The Claude Desktop extension validates
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate claude-desktop/md2ui-demo/manifest.json

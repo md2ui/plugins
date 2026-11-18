@@ -1,0 +1,22 @@
+{
+  "description": "The md2ui window's working line: before each tool call, a short label of it (a Bash call's description, else the tool and a file's basename) goes to the conversation's md2ui window. Turned off by the working_line setting.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uvx",
+            "args": [
+              "--from",
+              "md2ui==0.1.0a1",
+              "md2ui-demo-activity",
+              "${user_config.working_line}"
+            ],
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
