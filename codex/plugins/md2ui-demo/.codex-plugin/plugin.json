@@ -1,10 +1,14 @@
 {
   "name": "md2ui-demo",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Show ChatGPT or Codex replies in a native md2ui window and return the user's clicks and messages.",
   "author": {
     "name": "alexrvarela"
   },
+  "homepage": "https://md2ui.org",
+  "repository": "https://github.com/md2ui/plugins",
+  "license": "MIT",
+  "keywords": ["md2ui", "markdown", "ui", "generative-ui", "mcp", "window"],
   "skills": "./skills/",
   "requires_local_executor": true,
   "interface": {
@@ -20,7 +24,10 @@
       "Open md2ui and show me what is new.",
       "Show this answer in the md2ui window."
     ],
-    "brandColor": "#6750A4"
+    "websiteURL": "https://md2ui.org",
+    "brandColor": "#00E700",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
   },
   "mcpServers": "./.mcp.json"
 }

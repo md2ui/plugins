@@ -15,6 +15,11 @@ md2ui is experimental: anything may change between 0.x releases.
 | `codex/` | The Desktop-only OpenAI plugin for ChatGPT Desktop and Codex; its own notes are in `codex/README.md` |
 | `tests/` | The packages' tests |
 
+Every package carries the md2ui logo as its icon, a copy inside its own folder because each
+host reads it only from there: `assets/icon.png` in each Claude Code plugin and in the OpenAI
+plugin, and `icon.png` in the Desktop extension. All four are the same 512 px square file, as
+Anthropic's plugin directory requires and Claude Desktop recommends. Replace all four together.
+
 ## Install: every package runs the published md2ui
 
 Each package holds host metadata, thin skills that point at md2ui's `guide`, and at most a
@@ -62,10 +67,10 @@ codex plugin marketplace add md2ui/plugins
 ```
 
 Restart the ChatGPT desktop app, open Plugins, choose the **md2ui** source, and install
-**md2ui demo**. Start a new locally running ChatGPT Work or Codex conversation, select the
+**md2ui demo**. Start a new local Codex conversation in the desktop app, select the
 plugin with `@md2ui demo`, and ask it to open md2ui. Web and hosted conversations cannot open
 a native window on your computer. See [`codex/README.md`](codex/README.md) for cache refresh
-steps and diagnostics.
+steps and ChatGPT Work attachment diagnostics.
 
 ## Options
 
@@ -104,10 +109,15 @@ uv run --python 3.13 --with md2ui==0.1.0a1 python tests/codex_packaging_tests.py
 
 The release is named in each package: both `plugin.json` files and `hooks/hooks.json` under
 `claude-code/`, the Desktop launcher and its manifest's description, and `codex/`'s
-`.mcp.json`. Change all of them together, with the package versions; the tests fail while any
-names a release other than the one they run with.
+`.mcp.json`. Change all of them together; the tests fail while any names a release other than
+the one they run with.
 
-Then push a tag `v<version>` (the packages' version, e.g. `v0.1.0-alpha.1`):
+Any change that ships, a new md2ui release or not, is a new plugins release: raise the version
+in the four package manifests (both `plugin.json` files under `claude-code/`, the Desktop
+`manifest.json`, `codex/`'s `plugin.json`) together. That version is the plugins' own, apart
+from md2ui's: plugins `0.1.0-alpha.2` still run `md2ui==0.1.0a1`.
+
+Then push a tag `v<version>` (the packages' version, e.g. `v0.1.0-alpha.2`):
 `.github/workflows/release.yml` checks the tag matches every package, runs the tests against
 the pinned md2ui, builds the Claude Desktop extension and attaches it to a GitHub Release.
 `check.yml` runs the same tests on every push.

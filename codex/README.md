@@ -46,7 +46,7 @@ updating the plugin; existing conversations do not reload MCP tools. When the
 package version changes, uninstall and reinstall the plugin so Desktop replaces
 its cached copy.
 
-In a new locally running ChatGPT Work or Codex conversation, type `@` and select
+In a new local Codex conversation in the desktop app, type `@` and select
 **md2ui demo**, then ask it to “open md2ui” or show an answer there so it calls
 `show`. The window does not open during installation.
 
@@ -68,4 +68,10 @@ stdio server. ChatGPT Desktop logs are under
 `~/Library/Logs/com.openai.codex/` on macOS; a healthy attachment records an
 `md2ui-demo` transition from `starting` to `ready`. If the conversation sees the
 skill but the log has no startup transition, the client did not attach the MCP
-backend to that conversation.
+backend to that conversation. Match the startup event to the conversation you
+are testing. A `ready` event in a Codex thread only verifies that thread.
+
+In ChatGPT Work, the plugin can be visible while its tools are unavailable.
+If the affected Work conversation has no `md2ui-demo` startup event, check the
+Desktop log for local Work executor staging errors. Use a local Codex conversation
+in the desktop app to test the plugin while Work attachment is unresolved.

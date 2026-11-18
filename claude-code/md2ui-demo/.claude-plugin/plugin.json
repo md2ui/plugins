@@ -1,11 +1,16 @@
 {
   "name": "md2ui-demo",
   "displayName": "md2ui demo",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Claude shows its answers as UI in an md2ui window and hears your clicks. Includes the authoring tools.",
   "author": {
     "name": "alexrvarela"
   },
+  "homepage": "https://md2ui.org",
+  "repository": "https://github.com/md2ui/plugins",
+  "license": "MIT",
+  "keywords": ["md2ui", "markdown", "ui", "generative-ui", "mcp", "window"],
+  "icon": "./assets/icon.png",
   "userConfig": {
     "theme": {
       "type": "file",

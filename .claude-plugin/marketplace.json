@@ -3,9 +3,7 @@
   "owner": {
     "name": "alexrvarela"
   },
-  "metadata": {
-    "description": "md2ui's Claude Code plugins. Each runs the published md2ui package with uvx."
-  },
+  "description": "md2ui's Claude Code plugins. Each runs the published md2ui package with uvx.",
   "plugins": [
     {
       "name": "md2ui",

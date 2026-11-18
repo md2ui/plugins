@@ -1,11 +1,16 @@
 {
   "name": "md2ui",
   "displayName": "md2ui",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "md2ui's authoring tools: check, outline, lay out and preview Markdown that md2ui renders as UI, and read its authoring notes.",
   "author": {
     "name": "alexrvarela"
   },
+  "homepage": "https://md2ui.org",
+  "repository": "https://github.com/md2ui/plugins",
+  "license": "MIT",
+  "keywords": ["md2ui", "markdown", "ui", "generative-ui", "mcp"],
+  "icon": "./assets/icon.png",
   "userConfig": {
     "theme": {
       "type": "file",
