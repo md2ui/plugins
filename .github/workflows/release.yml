@@ -16,8 +16,14 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+      - name: System libraries skia-python loads on Linux (libEGL, libGL, fontconfig)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libgl1 libegl1 libfontconfig1
       - uses: astral-sh/setup-uv@v10.3.3
-      - uses: actions/setup-node@v4
+        with:
+          enable-cache: false
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - name: The tag names the packages' version
