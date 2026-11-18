@@ -72,6 +72,12 @@ plugin with `@md2ui demo`, and ask it to open md2ui. Web and hosted conversation
 a native window on your computer. See [`codex/README.md`](codex/README.md) for cache refresh
 steps and ChatGPT Work attachment diagnostics.
 
+> **ChatGPT Desktop users:** ChatGPT Work may show “Some tools are currently
+> unavailable” even when **md2ui demo** is installed and visible. In the same
+> desktop app, start a new local **Codex** conversation, select `@md2ui demo`,
+> and ask it to open md2ui. Native window rendering has been verified in local
+> Codex. ChatGPT Work tool attachment is still unresolved.
+
 ## Options
 
 **Claude Code** (`claude-code/*/.claude-plugin/plugin.json`, `userConfig`), set with
